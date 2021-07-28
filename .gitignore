@@ -1,4 +1,4 @@
 node_modules/
 .parcel-cache/
-serve-temp/
+serve_temp/
 dist/
