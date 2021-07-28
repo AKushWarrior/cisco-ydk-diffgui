@@ -1,0 +1,25 @@
+{
+  "name": "gui",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "start": "rm -rf ./serve_temp && parcel serve ./src/index.html --dist-dir serve_temp",
+    "build": "rm -rf ./dist && parcel build ./src/index.html"
+  },
+  "browserslist": [
+    "last 4 versions",
+    "> 0.25%",
+    "not ie < 11 or not ie_mob < 11"
+  ],
+  "author": "Aditya Kishore",
+  "license": "MIT",
+  "devDependencies": {
+    "parcel": "^2.0.0-beta.3.1"
+  },
+  "dependencies": {
+    "bulma": "^0.9.3",
+    "htm": "^3.1.0",
+    "preact": "^10.5.14",
+    "spectre.css": "^0.5.9"
+  }
+}
