@@ -1,11 +1,12 @@
-import { h, Component, render } from 'preact';
+import { h, createRef, Component, render } from 'preact';
+import { GroupForm } from './group_form';
+import { GroupDisplay } from './group_display';
 
 class App extends Component {
     constructor() {
         super();
-        this.state = { groups: {}};
 
-        this.is_defined = {
+        let is_defined = {
             "ACL": {
                 "delete_ace": true,
                 "set_acl": true,
@@ -95,7 +96,7 @@ class App extends Component {
             }
         }
 
-        this.duplicated = {
+        let duplicated = {
             "add_bundle_interface": [
                 "Bundles",
                 "PI Infra"
@@ -128,99 +129,83 @@ class App extends Component {
                 "PI Infra"
             ]
         }
+
+        this.state = { groups: {}, file1: null, file2: null, is_defined: is_defined, duplicated: duplicated };
+
+        this.fileInput = createRef();
+        this.fileInput2 = createRef();
     }
 
     componentDidMount() {
-
-        let keys = Array.from(new Map(Object.entries(this.is_defined)).keys());
+        let keys = Array.from(new Map(Object.entries(this.state.is_defined)).keys());
         keys.forEach((key, i) => this.state.groups[key] = true);
-        console.log(this.state.groups);
-        console.log(Object.entries(this.state.groups));
-
         this.setState({});
     }
 
     handleGroupToggle(id) {
         this.state.groups[id] = !this.state.groups[id];
-        console.log(this.state.groups);
         this.setState({});
     }
 
+    onFileInput1() {
+        this.setState({ file1: this.fileInput.current.files[0] });
+    }
+
+    onFileInput2() {
+        this.setState({ file2: this.fileInput2.current.files[0] });
+    }
+
     render() {
-        const foundList = Object.entries(this.is_defined).filter((entry) => this.state.groups[entry[0]]);
+        let foundList = Object.entries(this.state.is_defined).filter((entry) => this.state.groups[entry[0]]);
         for (let i = 0; i < foundList.length; i++) {
             foundList[i][1] = Object.entries(foundList[i][1]).filter(entry => entry[1]);
         }
+        foundList = foundList.filter((entry) => entry[1].length > 0);
+        const foundCards = foundList.map((entry) => <GroupDisplay name={entry[0]} content={entry[1]} is_found={true} />);
 
-        const foundCards = foundList.map((entry) => <GroupDisplay name={entry[0]} content={entry[1]} is_found={true}/> );
-
-        let notFoundList = Object.entries(this.is_defined).filter((entry) => this.state.groups[entry[0]]);
+        let notFoundList = Object.entries(this.state.is_defined).filter((entry) => this.state.groups[entry[0]]);
         for (let i = 0; i < notFoundList.length; i++) {
             notFoundList[i][1] = Object.entries(notFoundList[i][1]).filter(entry => !entry[1]);
         }
         notFoundList = notFoundList.filter((entry) => entry[1].length > 0);
-
-        const notFoundCards = notFoundList.map((entry) => <GroupDisplay name={entry[0]} content={entry[1]} is_found={false}/>);
+        const notFoundCards = notFoundList.map((entry) => <GroupDisplay name={entry[0]} content={entry[1]} is_found={false} />);
 
         return <div style="text-align: center;">
             <h1 style="text-align: center;" class="is-size-2">Netconf/Yang Method DiffGUI</h1>
+            <div class="level is-centered is-justify-content-center">
+                <div class={"file is-centered mt-4 mx-3" + (this.state.file1 == null ? "" : " is-link")}>
+                    <label class="file-label">
+                        <input class="file-input" type="file" name="resume" ref={this.fileInput} onInput={this.onFileInput1.bind(this)} />
+                        <span class="file-cta">
+                            <span class="file-label">
+                                {this.state.file1 == null ? "Upload File 1" : this.state.file1.name}
+                            </span>
+                        </span>
+                    </label>
+                </div>
+                <div class={"file is-centered mt-4 mx-3" + (this.state.file2 == null ? "" : " is-link")}>
+                    <label class="file-label">
+                        <input class="file-input" type="file" name="resume" ref={this.fileInput2} onInput={this.onFileInput2.bind(this)} />
+                        <span class="file-cta">
+                            <span class="file-label">
+                                {this.state.file2 == null ? "Upload File 2" : this.state.file2.name}
+                            </span>
+                        </span>
+                    </label>
+                </div>
+            </div>
             <div class="columns">
                 <GroupForm groups={Object.entries(this.state.groups)} handleGroup={this.handleGroupToggle.bind(this)} />
                 <div class="column px-1">
-                    <h3 class="my-5 is-size-4">Found in YDK</h3>
+                    <h3 class="mb-5 is-size-4">Found in YDK</h3>
                     {foundCards}
                 </div>
                 <div class="column px-1">
-                    <h3 class="my-5 is-size-4">Not Found in YDK</h3>
+                    <h3 class="mb-5 is-size-4">Not Found in YDK</h3>
                     {notFoundCards}
                 </div>
             </div>
         </div>;
-    }
-}
-
-class GroupForm extends Component {
-    render() {
-        const groupItems = this.props.groups.map((entry) =>
-            <div class="form-group mb-2">
-                <label class="form-switch">
-                    <input 
-                        type="checkbox" 
-                        checked={entry[1]}
-                        onChange={() => this.props.handleGroup(entry[0])}
-                    />
-                    <i class="form-icon"></i> {entry[0]}
-                </label>
-            </div>
-        );
-        return (
-            <div class="column is-narrow px-1 mr-6" style="text-align: left">
-                <h3 style="text-align: center" class="my-5 is-size-4">Groups</h3>
-                {groupItems}
-            </div>
-        );
-    }
-}
-
-class GroupDisplay extends Component {
-    render() {
-        const group = this.props.name;
-        const content = this.props.content;
-        const is_found = this.props.is_found;
-        const color = is_found ? " has-text-success" : "has-text-danger";
-
-        const items = content.map((entry) => <p style="margin-top: 5px; margin-bottom: 0px">{entry}</p>);
-        
-        return (
-            <div class="card mb-2">
-                <div class="card-header">
-                    <h5 class={"card-header-title my-0 " + color}>{group}</h5>
-                </div>
-                <div class="card-content is-size-7 py-3">
-                    {items}
-                </div>
-            </div>
-        );
     }
 }
 
