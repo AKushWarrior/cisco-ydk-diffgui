@@ -1,6 +1,7 @@
 import { h, createRef, Component, render } from 'preact';
 import { GroupForm } from './group_form';
 import { GroupDisplay } from './group_display';
+import { test_2 } from './transcrypt/tool';
 
 class App extends Component {
     constructor() {
@@ -129,6 +130,8 @@ class App extends Component {
                 "PI Infra"
             ]
         }
+
+        console.log(test_2("awesome"));
 
         this.state = { groups: {}, file1: null, file2: null, is_defined: is_defined, duplicated: duplicated };
 
