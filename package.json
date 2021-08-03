@@ -4,12 +4,12 @@
   "description": "",
   "scripts": {
     "start": "rm -rf ./serve_temp && transcrypt ./python/tool.py -od ../src/transcrypt && parcel serve ./src/index.html --dist-dir serve_temp",
-    "build": "rm -rf ./dist && transcrypt ./python/tool.py -od ../src/transcrypt && parcel build ./src/index.html"
+    "build": "npm upgrade && rm -rf ./dist && transcrypt ./python/tool.py -od ../src/transcrypt && parcel build ./src/index.html"
   },
   "browserslist": [
-    "last 4 versions",
-    "> 0.25%",
-    "not ie < 11 or not ie_mob < 11"
+    "last 2 versions",
+    "> 1%",
+    "not dead"
   ],
   "author": "Aditya Kishore",
   "license": "MIT",

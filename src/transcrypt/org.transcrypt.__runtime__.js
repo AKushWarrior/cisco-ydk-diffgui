@@ -84,3 +84,4 @@ function(self,question){if(arguments.length){var __ilastarg0__=arguments.length-
 null,1)));self.print(answer);return answer})}});export var __terminal__=__Terminal__();export var print=__terminal__.print;export var input=__terminal__.input;
 
 //# sourceMappingURL=org.transcrypt.__runtime__.map
+//# sourceMappingURL=org.transcrypt.__runtime__.map
