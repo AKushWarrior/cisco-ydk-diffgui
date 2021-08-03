@@ -19,11 +19,12 @@ The first folder holds the internal tool; right now, due to IP issues, it's a st
 internally. The `./src` folder holds the website (GUI) for the tool.
 
 The website doesn't actually call Python, because bundling a Python interpreter would be overkill for such a small
-tool. Instead, `npm run build` is set up to transpile the Python file (`./python/tool.py`) to JavaScript, and the 
-transpiled JS code is then called in `./src/index.js` after the user has inputted two files. 
-
-This transpilation system brings the total JS + CSS + HTML bundle size under 100kb when gzipped, which is a 
+tool. Instead, `npm run build` is set up to transpile a Python file (`./python/tool.py`) to JavaScript, and the 
+transpiled JS code is then called in `./src/index.js` after the user has inputted two files. This transpilation system brings the total JS + CSS + HTML bundle size under 100kb when gzipped, which is a 
 reasonable threshold for an internal tool.
+
+Note that the entry point in the python folder is `./python/tool.py` and the entry point in the src folder is `./src/index.html`; however, `index.html` is mostly a hollow shell, and most of the significant logic has an entry point at
+`./src/index.js`.
 
 ## Building & Deploying
 
