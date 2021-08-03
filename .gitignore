@@ -2,3 +2,4 @@ node_modules/
 .parcel-cache/
 serve_temp/
 dist/
+.vscode/
