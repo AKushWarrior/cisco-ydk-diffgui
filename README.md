@@ -35,12 +35,14 @@ time-to-interactive. The bundler is called Parcel, for those interested; however
 the build step.
 
 To run the build step and deploy the site, you need the following tools:
-    - Python 3.X
-    - NPM (Node Package Manager)
+
+    * Python 3.X
+    * NPM (Node Package Manager)
 
 You will need to further install some packages:
-    - `python3 -m pip install transcrypt` installs the python-to-js transpiler.
-    - `npm install` installs the javascript + css dependencies of the website.
+
+    * `python3 -m pip install transcrypt` installs the python-to-js transpiler.
+    * `npm install` installs the javascript + css dependencies of the website.
 
 After installing the aforementioned dependencies, you should be able to execute `npm run build`. If the command
 exits without errors, there should be a minified, serveable website in `./dist`.
