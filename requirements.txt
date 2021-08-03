@@ -1,1 +1,1 @@
-transcrypt==3.9
+transcrypt==3.7
