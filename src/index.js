@@ -71,7 +71,7 @@ class App extends Component {
                         <input class="file-input" type="file" accept=".py" name="resume" ref={this.fileInput} onInput={this.onFileInput1.bind(this)} />
                         <span class="file-cta">
                             <span class="file-label">
-                                {this.state.file1 == null ? "Upload File 1" : this.state.file1.name}
+                                {this.state.file1 == null ? "Upload Sub-AP" : this.state.file1.name}
                             </span>
                         </span>
                     </label>
@@ -81,14 +81,14 @@ class App extends Component {
                         <input class="file-input" type="file" accept=".py" name="resume" ref={this.fileInput2} onInput={this.onFileInput2.bind(this)} />
                         <span class="file-cta">
                             <span class="file-label">
-                                {this.state.file2 == null ? "Upload File 2" : this.state.file2.name}
+                                {this.state.file2 == null ? "Upload Sub-AP Base" : this.state.file2.name}
                             </span>
                         </span>
                     </label>
                 </div>
             </div>
             <div class="columns">
-                <GroupForm groups={Object.entries(this.state.groups)} handleGroup={this.handleGroupToggle.bind(this)} />
+                <GroupForm groups={Object.entries(this.state.groups)} handleGroup={this.handleGroupToggle.bind(this)} duplicated={this.state.duplicated} />
                 <div class="column px-1">
                     <h3 class="mb-5 is-size-4">Found in YDK</h3>
                     {foundCards}

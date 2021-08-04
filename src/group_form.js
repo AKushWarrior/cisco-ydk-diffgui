@@ -1,4 +1,5 @@
 import { h, Component} from 'preact';
+import { DuplicateModal } from './duplicate_modal';
 
 export { GroupForm };
 
@@ -20,6 +21,7 @@ class GroupForm extends Component {
             <div class="column is-narrow px-1 mr-6" style="text-align: left">
                 <h3 style="text-align: center" class="mb-5 is-size-4">Groups</h3>
                 {groupItems}
+                {this.props.groups.length > 0 ? <DuplicateModal is_active={true} duplicated={this.props.duplicated} /> : ""}
             </div>
         );
     }
