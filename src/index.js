@@ -1,7 +1,7 @@
 import { h, createRef, Component, render } from 'preact';
-import { GroupForm } from './group_form';
-import { GroupDisplay } from './group_display';
-import { sub_AP_method_test } from './transcrypt/tool';
+import { GroupForm } from './components/group_form';
+import { GroupDisplay } from './components/group_display';
+import { sub_AP_method_test } from './backend';
 
 class App extends Component {
     constructor() {

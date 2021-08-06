@@ -14,7 +14,6 @@ class DuplicateModal extends Component {
 
     render() {
         const duplicated = Object.entries(this.props.duplicated);
-        console.log(duplicated);
         const duplicated_blocks = duplicated.map(
             (entry) => 
             <div>

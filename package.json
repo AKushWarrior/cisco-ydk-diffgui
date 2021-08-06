@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "start": "rm -rf ./serve_temp && transcrypt ./python/tool.py -od ../src/transcrypt && parcel serve ./src/index.html --dist-dir serve_temp",
-    "build": "npm upgrade && rm -rf ./dist && transcrypt ./python/tool.py -od ../src/transcrypt && parcel build ./src/index.html"
+    "start": "rm -rf ./serve_temp && parcel serve ./src/index.html --dist-dir serve_temp",
+    "build": "npm upgrade && rm -rf ./dist && parcel build ./src/index.html"
   },
   "browserslist": [
     "last 2 versions",
